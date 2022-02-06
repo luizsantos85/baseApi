@@ -8,7 +8,7 @@ dotenv.config();
 
 const server = express();
 server.use(cors({
-    origin: ''
+    origin: '*'
 }));
 
 server.use(express.static(path.join(__dirname,'../public')));

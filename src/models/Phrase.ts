@@ -3,7 +3,7 @@ import { sequelize } from '../intances/mysql';
 
 export interface PhraseInstance extends Model {
    id: number;
-   authos: string;
+   author: string;
    txt: string;
 }
 
@@ -12,8 +12,8 @@ export const Phrase = sequelize.define<PhraseInstance>(
    {
       id: {
          primaryKey: true,
-         autoIncrement: true,
          type: DataTypes.INTEGER,
+         autoIncrement: true,
       },
       author: {
          type: DataTypes.STRING,
