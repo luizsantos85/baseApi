@@ -13,6 +13,7 @@ export const showPhrase = async (req: Request, res: Response) => {
 
    if (!phrase) {
       res.status(404).json({ error: 'Id não encontrado!' });
+      return;
    }
 
    res.status(200).json(phrase);
@@ -35,6 +36,7 @@ export const updatePhrase = async (req: Request, res: Response) => {
       await phrase.save();
    } else {
       res.status(404).json({ error: 'Id não encontrado!' });
+      return;
    }
    res.status(201).json(phrase);
 };
@@ -45,16 +47,15 @@ export const deletePhrase = async (req: Request, res: Response) => {
    res.status(200).json({});
 };
 
-export const randomPhrase = async (req:Request, res:Response) => {
-    let phrase = await Phrase.findOne({
-        order: [
-            Sequelize.fn('RAND')
-        ]
-    });
+export const randomPhrase = async (req: Request, res: Response) => {
+   let phrase = await Phrase.findOne({
+      order: [Sequelize.fn('RAND')],
+   });
 
-    if(!phrase){
+   if (!phrase) {
       res.status(404).json({ error: 'Nenhuma frase cadastrada!' });
-    }
-    
+      return;
+   }
+
    res.status(200).json(phrase);
 };
