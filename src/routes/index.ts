@@ -1,7 +1,9 @@
 import { Router } from 'express';
 import * as ApiController from '../controllers/apiController';
-import * as phrasesController from '../controllers/phrasesController';
+import * as PhrasesController from '../controllers/phrasesController';
+import * as AuthController from '../controllers/authController';
 import { upload } from '../helpers/configImage';
+import {Auth} from '../middlewares/auth';
 
 const router = Router();
 
@@ -11,14 +13,19 @@ router.get('/num-rand', ApiController.random);
 router.get('/nome-teste/:nome', ApiController.name);
 
 //rotas de frases
-router.get('/frases', phrasesController.listPhrases);
-router.get('/frase/aleatoria', phrasesController.randomPhrase);
-router.post('/frase/add', phrasesController.createPhrase);
-router.get('/frase/:id', phrasesController.showPhrase);
-router.put('/frase/:id', phrasesController.updatePhrase);
-router.delete('/frase/:id', phrasesController.deletePhrase);
+router.get('/frases', PhrasesController.listPhrases);
+router.get('/frase/aleatoria', PhrasesController.randomPhrase);
+router.post('/frase/add', PhrasesController.createPhrase);
+router.get('/frase/:id', PhrasesController.showPhrase);
+router.put('/frase/:id', PhrasesController.updatePhrase);
+router.delete('/frase/:id', PhrasesController.deletePhrase);
 
-//rotas de uploads
+//rota teste de uploads
 router.post('/upload', upload.single('avatar'), ApiController.uploadFile);
+
+//rotas auth
+router.post('/register', AuthController.register);
+router.post('/login', AuthController.login);
+router.get('/list', Auth.private, AuthController.list);
 
 export default router;

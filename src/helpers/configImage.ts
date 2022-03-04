@@ -7,12 +7,15 @@ export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
 
    if (err instanceof MulterError) {
       res.json({ error: err.code });
+      return;
    } else {
       console.log(err);
       res.json({ error: 'Ops, ocorreu algum erro.' });
+      return;
    }
 };
 
+//configurações de pastas e arquivos validos
 const storageConfig = multer.diskStorage({
    destination: (req, file, cb) => {
       cb(null, './tmp');

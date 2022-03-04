@@ -16,6 +16,7 @@ export const name = (req: Request, res: Response) => {
    res.status(200).json({ welcome: `Bem vindo ao sistema ${nome}` });
 };
 
+//File
 export const uploadFile = async (req: Request, res: Response) => {
    if (req.file) {
       const fileName = req.file.filename;
@@ -30,5 +31,6 @@ export const uploadFile = async (req: Request, res: Response) => {
       res.status(201).json({ fileName });
    } else {
       res.status(400).json({ error: 'Selecione um arquivo válido' });
+      return;
    }
 };
