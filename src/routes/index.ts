@@ -2,6 +2,7 @@ import { Router } from 'express';
 import * as ApiController from '../controllers/apiController';
 import * as PhrasesController from '../controllers/phrasesController';
 import * as AuthController from '../controllers/authController';
+import * as Emailcontroller from '../controllers/emailController';
 import { upload } from '../helpers/configImage';
 import {Auth} from '../middlewares/auth';
 
@@ -27,5 +28,8 @@ router.post('/upload', upload.single('avatar'), ApiController.uploadFile);
 router.post('/register', AuthController.register);
 router.post('/login', AuthController.login);
 router.get('/list', Auth.private, AuthController.list);
+
+//Rotas email
+router.post('/sendmail', Emailcontroller.sendMail);
 
 export default router;
