@@ -10,7 +10,7 @@ export const sendMail = async (req: Request, res: Response) => {
    let content: string = req.body.content as string;
 
    send({
-      to: process.env.SMTP_EMAIL,
+      to: process.env.SMTP_EMAIL as string,
       replyTo: email,
       subject,
       html: content,
