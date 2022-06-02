@@ -22,16 +22,13 @@ export const register = async (req: Request, res: Response) => {
             { expiresIn: '2h' }
          );
 
-         res.status(201).json({ id: newUser.id, token });
-         return;
+         return res.status(201).json({ id: newUser.id, token });
       } else {
-         res.json({ error: 'E-mail já cadastrado!' });
-         return;
+         return res.json({ error: 'E-mail já cadastrado!' });
       }
    }
 
-   res.json({ error: 'E-mail e/ou senha inválidos!' });
-   return;
+   return res.json({ error: 'E-mail e/ou senha inválidos!' });
 };
 
 export const login = async (req: Request, res: Response) => {
@@ -45,8 +42,7 @@ export const login = async (req: Request, res: Response) => {
          const match = bcrypt.compareSync(password, user.password);
 
          if (!match) {
-            res.status(403).json({ error: 'E-mail e/ou senha inválidos.' });
-            return;
+            return res.status(403).json({ error: 'E-mail e/ou senha inválidos.' });
          }
 
          const token = JWT.sign(
@@ -55,12 +51,10 @@ export const login = async (req: Request, res: Response) => {
             { expiresIn: '2h' }
          );
          
-         res.json({ status: true, token });
-         return;
+         return res.json({ status: true, token });
       }
    }
-   res.json({ status: false });
-   return;
+   return res.json({ status: false });
 };
 
 export const list = async (req: Request, res: Response) => {
@@ -71,5 +65,5 @@ export const list = async (req: Request, res: Response) => {
       list.push(users[i].email);
    }
 
-   res.status(200).json({ list });
+   return res.status(200).json({ list });
 };

@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import JWT from 'jsonwebtoken';
+import JWT, { JwtPayload } from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -11,17 +11,16 @@ export const Auth = {
          const [authType, token] = req.headers.authorization.split(' ');
          if (authType === 'Bearer') {
             try {
-               JWT.verify(token, process.env.JWT_SECRET_KEY as string);
+               JWT.verify(token, process.env.JWT_SECRET_KEY as string) as JwtPayload;
                success = true;
             } catch (error) {}
          }
       }
 
       if (success) {
-         next();
+         return next();
       } else {
-         res.status(403).json({ error: 'Não Autorizado.' });
-         return;
+         return res.status(403).json({ error: 'Não Autorizado.' });
       }
    },
 };
